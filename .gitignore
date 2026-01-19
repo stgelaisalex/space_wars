@@ -1,0 +1,26 @@
+# =========================
+# Unity
+# =========================
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# MemoryCaptures can get huge
+[Mm]emoryCaptures/
+
+# =========================
+# IDEs
+# =========================
+.vs/
+.idea/
+.vscode/
+
+# =========================
+# OS generated
+# =========================
+.DS_Store
+Thumbs.db
