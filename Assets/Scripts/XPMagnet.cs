@@ -22,14 +22,11 @@ public class XPMagnet : MonoBehaviour
             QueryTriggerInteraction.Collide
         );
 
-        Debug.Log("Magnet scan");
-
         for (int i = 0; i < hits.Length; i++)
         {
             var orb = hits[i].GetComponentInParent<XPOrb>();
             if (orb != null)
             {
-                Debug.Log("Found XP orb");
                 orb.StartMagnet(transform);
             }
         }
