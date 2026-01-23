@@ -7,6 +7,7 @@ public class ShipWeapon : MonoBehaviour
     [Header("Weapon")]
     public float range = 18f;
     public int damage = 10;
+    // NOTE: This is an interval in seconds (lower = faster)
     public float fireRate = 0.91f;
 
     [Header("Projectile")]
@@ -15,13 +16,43 @@ public class ShipWeapon : MonoBehaviour
 
     [Header("Targeting")]
     public LayerMask targetLayer;
+    [Tooltip("Max colliders checked per scan. Increase if you have lots of enemies in range.")]
+    public int maxTargets = 64;
 
     float nextFire;
 
+    // Upgrades
+    PlayerUpgrades upgrades;
+    float baseFireInterval;
+    int baseDamage;
+
+    Collider[] hitsBuffer;
+
+    void Awake()
+    {
+        upgrades = GetComponent<PlayerUpgrades>();
+        if (upgrades == null) upgrades = GetComponentInParent<PlayerUpgrades>();
+
+        baseFireInterval = fireRate;
+        baseDamage = damage;
+
+        hitsBuffer = new Collider[Mathf.Max(8, maxTargets)];
+    }
+
+    void OnValidate()
+    {
+        // keep buffer size consistent in editor if maxTargets changes
+        if (maxTargets < 1) maxTargets = 1;
+        if (hitsBuffer == null || hitsBuffer.Length != Mathf.Max(8, maxTargets))
+            hitsBuffer = new Collider[Mathf.Max(8, maxTargets)];
+    }
+
     void Update()
     {
+        // If your game pauses via timeScale = 0, this will naturally stop firing.
+        float interval = GetFireInterval();
         if (Time.time < nextFire) return;
-        nextFire = Time.time + fireRate;
+        nextFire = Time.time + interval;
 
         if (TryGetTarget(out Transform target, out Vector3 hitPoint))
             Fire(target, hitPoint);
@@ -29,22 +60,62 @@ public class ShipWeapon : MonoBehaviour
             Fire(null, firePoint.position + firePoint.forward * 10f); // shoot forward
     }
 
-   bool TryGetTarget(out Transform target, out Vector3 aimPoint)
+    float GetFireInterval()
+    {
+        // interval goes DOWN when attack speed goes UP
+        float mult = 1f;
+
+        if (upgrades != null && upgrades.attackSpeedPct != 0f)
+            mult += upgrades.attackSpeedPct / 100f;
+
+        float interval = baseFireInterval / mult;
+
+        // safety clamp so it never becomes absurdly small
+        return Mathf.Max(0.05f, interval);
+    }
+
+    int GetDamage()
+    {
+        // Damage is now a PERCENT upgrade, not flat.
+        float mult = 1f;
+        if (upgrades != null)
+            mult = upgrades.DamageMultiplier; // 1 + damagePct/100
+
+        float final = baseDamage * mult;
+
+        // Projectile.damage is int in your setup, so round to nearest
+        return Mathf.Max(1, Mathf.RoundToInt(final));
+    }
+
+    bool TryGetTarget(out Transform target, out Vector3 aimPoint)
     {
         target = null;
         aimPoint = Vector3.zero;
 
-        // IMPORTANT: include triggers if your enemies use trigger colliders
-        var hits = Physics.OverlapSphere(transform.position, range, targetLayer, QueryTriggerInteraction.Collide);
+        if (!firePoint) return false;
+        if (hitsBuffer == null || hitsBuffer.Length == 0) return false;
 
-        if (hits.Length == 0) return false;
+        int count = Physics.OverlapSphereNonAlloc(
+            transform.position,
+            range,
+            hitsBuffer,
+            targetLayer,
+            QueryTriggerInteraction.Collide
+        );
+
+        if (count <= 0) return false;
 
         float closest = float.MaxValue;
         Collider best = null;
 
-        foreach (var h in hits)
+        Vector3 p = transform.position;
+
+        for (int i = 0; i < count; i++)
         {
-            float d = Vector3.Distance(transform.position, h.transform.position);
+            var h = hitsBuffer[i];
+            if (!h) continue;
+
+            float d = (p - h.transform.position).sqrMagnitude;
             if (d < closest)
             {
                 closest = d;
@@ -54,10 +125,7 @@ public class ShipWeapon : MonoBehaviour
 
         if (!best) return false;
 
-        // Use the collider’s transform (or parent) as the target
         target = best.attachedRigidbody ? best.attachedRigidbody.transform : best.transform;
-
-        // Aim at closest point to the firepoint
         aimPoint = best.ClosestPoint(firePoint.position);
         return true;
     }
@@ -80,6 +148,6 @@ public class ShipWeapon : MonoBehaviour
         var proj = Instantiate(projectilePrefab, firePoint.position, rot);
         proj.target = target; // can be null, Projectile handles it
         proj.speed = projectileSpeed;
-        proj.damage = damage;
+        proj.damage = GetDamage();
     }
 }

@@ -855,6 +855,8 @@ GameObject:
   - component: {fileID: 1159787381}
   - component: {fileID: 1159787382}
   - component: {fileID: 1159787383}
+  - component: {fileID: 1159787384}
+  - component: {fileID: 1159787385}
   m_Layer: 6
   m_Name: Ship
   m_TagString: Ship
@@ -917,6 +919,7 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 8
+  maxTargets: 64
 --- !u!65 &1159787379
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -950,8 +953,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468da0950d526fb4187e8518d580e15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHp: 100
+  maxHp: 400
   hp: 0
+  baseRegenHpPerSec: 1
+  regenDelayAfterHit: 2
 --- !u!114 &1159787381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1002,6 +1007,45 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   refreshRate: 0.05
+  maxOrbs: 64
+--- !u!114 &1159787384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159787375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b48d79339b92e4fa2d227ee8d76ee2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeDebugOverlay
+  upgrades: {fileID: 0}
+  ship: {fileID: 0}
+  weapon: {fileID: 0}
+  health: {fileID: 0}
+  toggleKey: 94
+  startVisible: 0
+--- !u!114 &1159787385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159787375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0198778f18c9d14ebbcf24387f2d40e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerUpgrades
+  moveSpeedPct: 0
+  attackSpeedPct: 0
+  xpGainPct: 0
+  magnetRadiusPct: 0
+  dodgeChancePct: 0
+  healthRegenHpPerSec: 0
+  damagePct: 0
+  healthBonusPct: 0
 --- !u!1 &1180454131
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,7 +1081,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
   m_PanelSettings: {fileID: 11400000, guid: f6cdccfbbdd294549862e0709375d4ca, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 4b881ed3f0e930444980a58dfa474dfa, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: 858c63968db997643888fbd187700608, type: 3}
   m_SortingOrder: 0
   m_Position: 0
   m_WorldSpaceSizeMode: 1
@@ -1112,7 +1156,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelUpOverlayController
   player: {fileID: 1159787382}
+  upgrades: {fileID: 0}
   pauseOnLevelUp: 1
+  iconMoveSpeed: {fileID: 2800000, guid: 92234ea1b5c5b484e93aa91906e095e6, type: 3}
+  iconDodge: {fileID: 2800000, guid: dd0e28696c436a84ca8784f2a8ed9d02, type: 3}
+  iconAttackSpeed: {fileID: 2800000, guid: 74702ab202b1abc4c9657b5d6c5401ea, type: 3}
+  iconXp: {fileID: 2800000, guid: 82f50aa2cae91d14abc4ef81c1dc78e1, type: 3}
+  iconMagnet: {fileID: 2800000, guid: e5e69ea6402a3124b8f1d146b6da5382, type: 3}
+  iconDamage: {fileID: 2800000, guid: 000a2feae6503ad4a83a4104322c04d6, type: 3}
+  iconHealth: {fileID: 2800000, guid: 9d6130e1bf64bb443977ac8ddcf4defb, type: 3}
+  iconHealthRegen: {fileID: 2800000, guid: 4e15eae7779af28418f994a2ba239938, type: 3}
+  frameWhite: {fileID: 2800000, guid: a23a739e010492d469d94b50ccbc3f39, type: 3}
+  frameBlue: {fileID: 2800000, guid: 7683d6759ca0e3e4f9175b1f7237789b, type: 3}
+  frameRed: {fileID: 2800000, guid: cc7c3bf6c7c1cc140b97ddb50ecf483e, type: 3}
+  frameYellow: {fileID: 2800000, guid: a1ac40e92a2f25e4389c340b5c3766db, type: 3}
 --- !u!1 &1258324881
 GameObject:
   m_ObjectHideFlags: 0

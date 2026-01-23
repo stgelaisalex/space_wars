@@ -1,0 +1,44 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="hudRoot" style="flex-grow: 1; position: absolute; left: 0; top: 1px; right: 0; bottom: -1px;">
+        <ui:VisualElement name="leftHUD" style="flex-grow: 1; position: absolute; bottom: 20px; left: 20px; width: 520px; height: 206px; flex-direction: row; align-items: center; overflow: visible;">
+            <ui:VisualElement name="infosBlock" tabindex="-1" style="flex-grow: 1; flex-shrink: 0; height: 100px; translate: -30px 0; padding-left: 200px;">
+                <ui:Label text="LEVEL 1" name="levelLabel" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Exo-VariableFont_wght.ttf?fileID=12800000&amp;guid=f37e7d083d75b4948ab5d1141b1406a0&amp;type=3#Exo-VariableFont_wght&quot;); font-size: 22px; -unity-font-style: bold; color: rgb(242, 115, 26); padding-left: 42px;" />
+                <XPBar name="xpBar" />
+            </ui:VisualElement>
+            <ui:VisualElement name="portraitSlot" tabindex="5" style="flex-grow: 0; width: 206px; height: 206px; position: absolute; top: 0; left: 0;">
+                <ui:VisualElement name="hexagons" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: url(&quot;project://database/Assets/Images/hexagons-bg.png?fileID=2800000&amp;guid=01319e894c2980e49b487764f871cfa3&amp;type=3#hexagons-bg&quot;);" />
+                <ui:VisualElement name="portrait" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Images/portrait-sharkbar.png?fileID=2800000&amp;guid=31131a0ca6e580347b9357d0ba3f96f2&amp;type=3#portrait-sharkbar&quot;);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="levelUpOverlay" tabindex="1" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 1; display: flex; visibility: visible; justify-content: center; align-items: center; background-color: rgba(15, 15, 46, 0.69); align-self: center; align-content: center;">
+            <ui:VisualElement name="levelUpPanel" style="flex-grow: 0; background-image: none; top: 0; left: 5%; right: 0; bottom: 0; position: relative; visibility: visible; background-size: 100% 100%; width: 90%; align-self: center; display: flex;" />
+            <ui:VisualElement name="panelBg" style="flex-grow: 1; position: absolute; top: 0%; left: 0; right: 0; bottom: 0; background-image: none; height: 100%; max-width: none; max-height: none; background-size: 100% 100%; width: 100%; align-items: center; align-self: center; padding-top: 0%; justify-content: center; margin-left: 0;">
+                <ui:VisualElement name="panelBgImage" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Images/bg-dots.png?fileID=2800000&amp;guid=252dcb5b78eb2424bb330c870b9ff143&amp;type=3#bg-dots&quot;); -unity-background-scale-mode: scale-and-crop; flex-shrink: 0; position: relative; top: 0; left: 0; right: 0; bottom: 0; margin-top: 0%; width: 100%; height: 100%; background-size: contain; margin-left: auto; margin-right: auto; max-width: 1400px; max-height: 998px; justify-content: center; align-self: flex-start; align-items: flex-end;">
+                    <ui:VisualElement name="visualContainer" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Images/bg-upgrade.png?fileID=2800000&amp;guid=5dfa6fd672c42474297e52928294691e&amp;type=3#bg-upgrade&quot;); width: 100%; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-size: contain; align-content: center; align-items: center; align-self: center; justify-content: center;">
+                        <ui:VisualElement name="portrait" style="flex-grow: 1; position: absolute; top: 22%; left: -2%; width: 20%; padding-bottom: 20%;" />
+                        <ui:VisualElement name="containerUpgrades" style="flex-grow: 1; align-self: flex-end; justify-content: center; height: auto; align-content: stretch; max-height: 42%; max-width: 1920px; flex-direction: row; width: 80%; background-color: rgba(185, 71, 71, 0);">
+                            <ui:VisualElement name="upgradeChoice0" style="flex-grow: 1; width: 33%; height: 100%;">
+                                <ui:VisualElement name="frame" style="flex-grow: 1; background-color: rgb(204, 40, 40); position: absolute; top: 0; left: 0; right: 0; bottom: 0;" />
+                                <ui:VisualElement name="icon" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0;" />
+                                <ui:VisualElement name="title" style="flex-grow: 1;" />
+                                <ui:VisualElement name="value" style="flex-grow: 1;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="upgradeChoice1" style="flex-grow: 1; width: 33%; height: 100%;">
+                                <ui:VisualElement name="frame" style="flex-grow: 1; background-color: rgb(204, 40, 40); position: absolute; top: 0; left: 0; right: 0; bottom: 0;" />
+                                <ui:VisualElement name="icon" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0;" />
+                                <ui:VisualElement name="title" style="flex-grow: 1;" />
+                                <ui:VisualElement name="value" style="flex-grow: 1;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="upgradeChoice0" style="flex-grow: 1; width: 33%; height: 100%;">
+                                <ui:VisualElement name="frame" style="flex-grow: 1; background-color: rgb(204, 40, 40); position: absolute; top: 0; left: 0; right: 0; bottom: 0;" />
+                                <ui:VisualElement name="icon" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0;" />
+                                <ui:VisualElement name="title" style="flex-grow: 1;" />
+                                <ui:VisualElement name="value" style="flex-grow: 1;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

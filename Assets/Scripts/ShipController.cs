@@ -14,6 +14,20 @@ public class ShipController : MonoBehaviour
 
     private Vector3 velocity;
 
+    // Upgrades
+    PlayerUpgrades upgrades;
+    float baseThrust, baseStrafeThrust, baseMaxSpeed;
+
+    void Awake()
+    {
+        upgrades = GetComponent<PlayerUpgrades>();
+        if (upgrades == null) upgrades = GetComponentInParent<PlayerUpgrades>();
+
+        baseThrust = thrust;
+        baseStrafeThrust = strafeThrust;
+        baseMaxSpeed = maxSpeed;
+    }
+
     void Update()
     {
         float dt = Time.deltaTime;
@@ -26,7 +40,7 @@ public class ShipController : MonoBehaviour
         if (Keyboard.current != null)
         {
             turn = (Keyboard.current.aKey.isPressed ? -1f : 0f) +
-                    (Keyboard.current.dKey.isPressed ? 1f : 0f);
+                   (Keyboard.current.dKey.isPressed ? 1f : 0f);
 
             forward = (Keyboard.current.wKey.isPressed ? 1f : 0f) +
                       (Keyboard.current.sKey.isPressed ? -1f : 0f);
@@ -39,16 +53,26 @@ public class ShipController : MonoBehaviour
         // --- Rotate ship ---
         transform.Rotate(0f, turn * turnSpeed * dt, 0f, Space.World);
 
+        // --- Apply move speed upgrades ---
+        float speedMult = 1f;
+        if (upgrades != null && upgrades.moveSpeedPct != 0f)
+            speedMult += upgrades.moveSpeedPct / 100f;
+
+        float curThrust = baseThrust * speedMult;
+        float curStrafe = baseStrafeThrust * speedMult;
+        float curMaxSpeed = baseMaxSpeed * speedMult;
+
         // --- Accelerate in ship local axes ---
         Vector3 accel =
-            (transform.forward * (forward * thrust)) +
-            (transform.right * (strafe * strafeThrust));
+            (transform.forward * (forward * curThrust)) +
+            (transform.right * (strafe * curStrafe));
 
         velocity += accel * dt;
 
         // clamp speed
-        if (velocity.magnitude > maxSpeed)
-            velocity = velocity.normalized * maxSpeed;
+        float mag = velocity.magnitude;
+        if (mag > curMaxSpeed && mag > 0.0001f)
+            velocity = (velocity / mag) * curMaxSpeed;
 
         // damping (spacey glide)
         velocity = Vector3.Lerp(velocity, Vector3.zero, linearDamping * dt);

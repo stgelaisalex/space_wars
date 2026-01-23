@@ -44,7 +44,17 @@ public class XPOrb : MonoBehaviour
         var xp = other.GetComponentInParent<PlayerXP>();
         if (xp == null) return;
 
-        xp.AddXP(amount);
+        int gained = amount;
+
+        // XP gain upgrade lives on the ship/player
+        var upgrades = other.GetComponentInParent<PlayerUpgrades>();
+        if (upgrades != null && upgrades.xpGainPct != 0f)
+        {
+            float mult = 1f + upgrades.xpGainPct / 100f;
+            gained = Mathf.Max(1, Mathf.RoundToInt(amount * mult));
+        }
+
+        xp.AddXP(gained);
         Destroy(gameObject);
     }
 }

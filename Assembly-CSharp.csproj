@@ -56,6 +56,7 @@
     <Compile Include="Assets\UI\HealthHUD.cs" />
     <Compile Include="Assets\Scripts\HUDXPBinder.cs" />
     <Compile Include="Assets\UI\SlantedHealthBar.cs" />
+    <Compile Include="Assets\Scripts\UpgradeDebugOverlay.cs" />
     <Compile Include="Assets\Scripts\ShipWeapon.cs" />
     <Compile Include="Assets\Scripts\DummyTarget.cs" />
     <Compile Include="Assets\Scripts\CameraZoom.cs" />
@@ -77,9 +78,11 @@
     <Compile Include="Assets\Scripts\XPOrbs.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\XPBar.cs" />
+    <Compile Include="Assets\Scripts\PlayerUpgrades.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UI Toolkit\HUD_Document.uxml" />
+    <None Include="Assets\UI Toolkit\old broken.uxml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

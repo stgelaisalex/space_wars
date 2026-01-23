@@ -111,6 +111,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHp: 30
   hp: 0
+  baseRegenHpPerSec: 0.5
+  regenDelayAfterHit: 2
 --- !u!114 &-8566026582990274922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,8 +137,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e4ff5f8074b9343a576c12a8d970a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropXPOnDeath
+  enemyType: 0
+  xpOverride: -1
   xpPrefab: {fileID: 4484023234557063661, guid: 2e8d01b39f8b62141a2243e042dc4bd6, type: 3}
-  xpAmount: 3
+  instantFraction: 0.33
   minOrbs: 1
   maxOrbs: 3
   scatterRadius: 0.4
@@ -222,8 +226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf3052e81a13e134a87fbd1dd9f0f366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
-  damagePerTick: 8
-  tickSeconds: 0.5
+  damagePerTick: 32
+  tickSeconds: 2
 --- !u!1001 &995967838632363536
 PrefabInstance:
   m_ObjectHideFlags: 0
