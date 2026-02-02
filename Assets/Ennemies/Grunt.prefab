@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8508497157078580401}
   - component: {fileID: 8840915708917573218}
   - component: {fileID: 3133111677460127442}
+  - component: {fileID: 3556074013261889445}
   - component: {fileID: 6556672691418002309}
   - component: {fileID: -8566026582990274922}
   - component: {fileID: -880433848195766599}
@@ -97,6 +98,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3556074013261889445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864459317099039625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9489844b7e305b842b28ec14296d73e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySeparation
+  radius: 1
+  strength: 4
+  maxNeighbors: 24
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &6556672691418002309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,11 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyChase3D
   shipTag: Ship
   speed: 3.5
-  separationRadius: 0.8
-  separationStrength: 2
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 8
+  separationWeight: 0.5
   rotateToTarget: 1
   turnSpeed: 720
   yawOffset: 0
